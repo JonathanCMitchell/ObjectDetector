@@ -5,10 +5,11 @@ import numpy as np
 import pickle
 import cv2
 import glob
+import os
 import settings
 import collections
 from scipy.ndimage.measurements import label
-from helpers import convert_color, \
+from VehicleDetection.helpers import convert_color, \
     get_hog_features, \
     bin_spatial, \
     color_hist, \
@@ -19,7 +20,8 @@ from helpers import convert_color, \
 import pandas as pd
 from tqdm import tqdm
 
-pickle_data = pickle.load(open("svc_pickle.p", "rb"))
+path_to_pickle = os.path.abspath('./svc_pickle.p')
+pickle_data = pickle.load(open(path_to_pickle, "rb"))
 svc = pickle_data['svc']
 X_scaler = pickle_data['X_scaler']
 orient = pickle_data['orient']
@@ -45,7 +47,10 @@ class Car_Detector():
         draw_img = draw_centroids(img, centroid_rectangles)
         return draw_img, average_heatmaps, thresholded_heatmaps
 
-        # return draw_img
+    def process_centroids(self, img):
+        self.count += 1
+        centroid_rectangles, average_heatmaps, thresholded_heatmaps = self.get_centroid_rectangles(img)
+        return centroid_rectangles
 
     def get_detections(self, img):
         detection_general = []

@@ -6,7 +6,7 @@ import cv2
 from tqdm import tqdm
 import time
 # New
-from Car_Detector import Car_Detector
+from VehicleDetection.Car_Detector import Car_Detector
 df = pd.read_csv('./project_video_data/driving.csv')
 
 cf = Car_Detector()

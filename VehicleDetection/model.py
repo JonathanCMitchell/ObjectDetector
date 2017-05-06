@@ -7,7 +7,7 @@ import time
 from sklearn.svm import LinearSVC
 from sklearn.preprocessing import StandardScaler
 from skimage.feature import hog
-from helpers import *
+from VehicleDetection.helpers import *
 from sklearn.model_selection import train_test_split
 import pickle
 import settings

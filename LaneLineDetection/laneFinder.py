@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import settings
-from laneLineFinder import LaneLineFinder
+from LaneLineDetection.laneLineFinder import LaneLineFinder
 import math
 import matplotlib.pyplot as plt
 
