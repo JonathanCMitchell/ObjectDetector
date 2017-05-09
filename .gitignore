@@ -11,7 +11,6 @@ project_video_output*
 *.mp4
 /results/
 .idea*
-/output_images/
 /data/
 .ipynb_checkpoints/
 .idea/
@@ -30,3 +29,5 @@ output_images/F_original_image_hog_features_YChannel.png
 output_images/train_not_vehicle.png
 output_images/train_video.png
 
+LaneLineDetection/__pycache__/
+VehicleDetection/__pycache__/

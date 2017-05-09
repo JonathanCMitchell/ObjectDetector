@@ -1,24 +1,10 @@
-import matplotlib.image as mpimg
-import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
 import numpy as np
 import pickle
 import cv2
-import glob
 import os
 import settings
 import collections
-from scipy.ndimage.measurements import label
-from VehicleDetection.helpers import convert_color, \
-    get_hog_features, \
-    bin_spatial, \
-    color_hist, \
-    draw_centroids, \
-    draw_labeled_boxes, \
-    find_cars
-
-import pandas as pd
-from tqdm import tqdm
+from VehicleDetection.helpers import draw_centroids, find_cars
 
 path_to_pickle = os.path.abspath('./svc_pickle.p')
 pickle_data = pickle.load(open(path_to_pickle, "rb"))
@@ -30,7 +16,6 @@ cell_per_block = pickle_data['cell_per_block']
 spatial_size = pickle_data['spatial_size']
 hist_bins = pickle_data['hist_bins']
 
-
 class Car_Detector():
     def __init__(self):
         self.threshold = 0.58
@@ -39,7 +24,6 @@ class Car_Detector():
         self.count = 0
         self.frames_missed = 0
         self.found = None
-        self.heat = np.zeros((settings.IMG_HEIGHT, settings.IMG_WIDTH), dtype=np.float32)  # maybe chance dtype
 
     def process_image(self, img):
         self.count += 1
@@ -81,6 +65,7 @@ class Car_Detector():
                                            spatial_size,
                                            hist_bins))
 
+        # Extract detections from all the window searches
         detections = [detection for detections in detection_general for detection in detections]
         if len(detections) == 0:
             self.frames_missed += 1
@@ -118,7 +103,7 @@ class Car_Detector():
             threshold = self.threshold * len(self.heatmaps) # added 0.5
         else:
             heatmap = heatmap
-            # Make threshold a constant before averaging to rule out false detections
+            # Make threshold a constant before summing case (above if) to rule out false detections
             threshold = 1
 
         # Threshold

@@ -42,8 +42,9 @@ p = Processor
 
 from moviepy.editor import VideoFileClip
 
-test_output = 'project_video_output_both.mp4'
+test_output = 'project_video_output_yaa.mp4'
 clip1 = VideoFileClip("project_video.mp4")
 p = Processor()
 white_clip = clip1.fl_image(p.process_image) #NOTE: this function expects color images!!
 white_clip.write_videofile(test_output, audio=False)
+
